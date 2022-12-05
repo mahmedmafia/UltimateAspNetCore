@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entities.Exeptions
 {
-    public abstract class NotFoundException : Exception
+    public sealed class IdParametersBadRequestException : BadRequestException
     {
-        public NotFoundException(string? message) : base(message)
+        public IdParametersBadRequestException() : base("Paramter ids is Null")
         {
         }
     }

@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MediaBrowser.Common" Version="4.7.9" />
-  </ItemGroup>
-
 </Project>

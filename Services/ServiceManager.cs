@@ -2,6 +2,7 @@
 using AutoMapper;
 using Contracts;
 using Service.Contracts;
+using Shared.DTO;
 
 namespace Services
 {
@@ -10,9 +11,9 @@ namespace Services
         private readonly Lazy<IEmployeeService> _employeeService;
         private readonly Lazy<ICompanyService> _companyService;
 
-        public ServiceManager(IRepositoryManager repositoryManager,ILoggerManager logger,IMapper mapper)
+        public ServiceManager(IRepositoryManager repositoryManager,ILoggerManager logger,IMapper mapper,IDataShaper<EmployeeDto> empDataShaper)
         {
-            _employeeService = new Lazy<IEmployeeService>(()=> new EmployeeService(repositoryManager, logger,mapper));
+            _employeeService = new Lazy<IEmployeeService>(()=> new EmployeeService(repositoryManager, logger,mapper, empDataShaper));
             _companyService = new Lazy<ICompanyService>(() => new CompanyService(repositoryManager, logger,mapper));
 
         }

@@ -1,6 +1,7 @@
 
 using Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -10,14 +11,30 @@ namespace Repository
         public CompanyRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
-        public IEnumerable<Company> GetAllCompanies(bool trackChanges)
+
+        public void CreateCompany(Company company)
         {
-            return FindAll(trackChanges).OrderBy(c=> c.Name).ToList();  
+            Create(company);
         }
 
-        public Company GetCopmpany(Guid CompanyId, bool trackChanges)
+        public void DeleteCompany(Company company)
         {
-            return FindByCondition((x) => x.Id.Equals(CompanyId), trackChanges).SingleOrDefault() ;
+            Delete(company);
+        }
+
+        public async Task<IEnumerable<Company>> GetAllCompaniesAsync(bool trackChanges)
+        {
+            return await FindAll(trackChanges).OrderBy(c=> c.Name).ToListAsync();  
+        }
+
+        public async Task<IEnumerable<Company>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges)
+        {
+            return await FindByCondition((x) => ids.Contains(x.Id), trackChanges).ToListAsync();
+        }
+
+        public async Task<Company> GetCopmpanyAsync(Guid CompanyId, bool trackChanges)
+        {
+            return await FindByCondition((x) => x.Id.Equals(CompanyId), trackChanges).SingleOrDefaultAsync() ;
         }
     }
 }

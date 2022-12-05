@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entities.Exeptions
 {
-    public abstract class NotFoundException : Exception
+    public sealed class CollectionByIdsBadRequestException : BadRequestException
     {
-        public NotFoundException(string? message) : base(message)
+        public CollectionByIdsBadRequestException() : base("collection count mismatch to ids")
         {
         }
     }
